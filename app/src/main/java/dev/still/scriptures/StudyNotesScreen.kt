@@ -51,7 +51,7 @@ fun StudyNotesScreen(book: Book, position: ReadingPosition, repository: StudyRep
                 .rotaryScrollable(RotaryScrollableDefaults.behavior(state, hapticFeedbackEnabled = false), focus)) {
             item { Heading("FOOTNOTES", book.reference(position.chapter, position.verse)) }
             when {
-                loading -> item { Text("Downloading chapter study helpsâ€¦", color = Muted, fontSize = 14.sp) }
+                loading -> item { Text("Downloading chapter study helps…", color = Muted, fontSize = 14.sp) }
                 failed -> {
                     item { Text("These notes are not downloaded yet. Connect to the internet, then try again. Your scripture text remains available offline.", color = Ink, fontSize = 14.sp) }
                     item { MenuChip("Try again") { load() } }
@@ -60,14 +60,14 @@ fun StudyNotesScreen(book: Book, position: ReadingPosition, repository: StudyRep
                     val notes = study.notes.filter { it.verse == position.verse }
                     if (notes.isEmpty()) item { Text("No footnotes for this verse in the official chapter.", color = Muted, fontSize = 14.sp) }
                     notes.forEach { note ->
-                        item { Text("${note.verse}${note.marker} Â· ${note.word}", color = Accent, fontSize = 14.sp) }
+                        item { Text("${note.verse}${note.marker} · ${note.word}", color = Accent, fontSize = 14.sp) }
                         item { Text(note.text, color = Ink, fontFamily = FontFamily.Serif,
                             fontSize = textSize.sp, lineHeight = (textSize * 1.5f).sp) }
                         note.links.forEach { link -> item {
                             MenuChip(link.label, "Open reference") { onLink(link) }
                         } }
                     }
-                    item { Text("Official study helps Â· downloaded for personal reading. Saved offline on this watch.", color = Muted, fontSize = 11.sp) }
+                    item { Text("Official study helps · downloaded for personal reading. Saved offline on this watch.", color = Muted, fontSize = 11.sp) }
                     if (study.notices.isNotBlank()) item { Text(study.notices, color = Muted, fontSize = 11.sp) }
                     item { MenuChip("Official chapter on phone", "Scan source link") { onLink(StudyLink(book.reference(position.chapter), study.source + "#study-helps")) } }
                 }

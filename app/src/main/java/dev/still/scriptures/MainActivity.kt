@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
                 }
                 Box(Modifier.fillMaxSize().background(Color.Black)) {
                     if (error) Message("Unable to open the library. Please reinstall the app.")
-                    else if (books == null) Message("Opening scripturesÃ¢â‚¬Â¦")
+                    else if (books == null) Message("Opening scriptures…")
                     else ScriptureApp(books!!, repository, lessonRepository, lessons, store, this@MainActivity)
                 }
             }
@@ -130,18 +130,18 @@ private fun ScriptureApp(books: List<Book>, repository: ScriptureRepository, les
                 item { Heading("STILL", "Scriptures") }
                 item {
                     MenuChip(if (hasPosition) "Continue reading" else "Start reading",
-                        lastLesson?.let { "Lesson Ã‚Â· ${it.title}" } ?: books.first { it.id == position.bookId }.reference(position.chapter, position.verse)) {
+                        lastLesson?.let { "Lesson · ${it.title}" } ?: books.first { it.id == position.bookId }.reference(position.chapter, position.verse)) {
                         if (lastLesson != null) navigation.navigate("lesson-text/${lastLesson.id}") else open(position, hasPosition)
                     }
                 }
-                item { MenuChip("Go to scripture", "Book Ã‚Â· chapter Ã‚Â· verse") { navigation.navigate("volume") } }
+                item { MenuChip("Go to scripture", "Book · chapter · verse") { navigation.navigate("volume") } }
                 item { MenuChip("Come, Follow Me", current?.title ?: "Browse saved lessons") { navigation.navigate("cfm") } }
                 item { MenuChip("Scripture of the day", daily?.let { books.first { b -> b.id == it.bookId }.reference(it.chapter, it.verse) } ?: "Selection unavailable") {
                     if (daily != null) open(daily.position()) else navigation.navigate("cfm")
                 } }
                 item { MenuChip("Flip open", "Find a random verse") { navigation.navigate("flip-scope") } }
                 item { MenuChip("Saved verses", "${savedVerses.size} saved on this watch") { navigation.navigate("saved") } }
-                item { MenuChip("Reading settings", "Text size Ã‚Â· screen") { navigation.navigate("settings") } }
+                item { MenuChip("Reading settings", "Text size · screen") { navigation.navigate("settings") } }
             }
         }
         composable("volume") {
@@ -203,7 +203,7 @@ private fun ScriptureApp(books: List<Book>, repository: ScriptureRepository, les
             val isSaved = savedVerses.any { verseKey(it) == verseKey(position) }
             WatchList {
                 item { Heading("VERSE", book.reference(position.chapter, position.verse)) }
-                item { MenuChip(if (isSaved) "Ã¢â„¢Â¥ Remove saved verse" else "Ã¢â„¢Â¡ Save verse", "On this watch") {
+                item { MenuChip(if (isSaved) "♥ Remove saved verse" else "♡ Save verse", "On this watch") {
                     savedVerses = store.toggleSaved(position).filter { validVerse(it, books) }
                     navigation.popBackStack()
                 } }
@@ -266,7 +266,7 @@ private fun ScriptureApp(books: List<Book>, repository: ScriptureRepository, les
             else WatchList {
                 item { Heading("COME, FOLLOW ME", "No saved lesson for today") }
                 item { MenuChip("Browse saved weeks") { navigation.navigate("lesson-years") } }
-                item { MenuChip(if (refreshing) "CheckingÃ¢â‚¬Â¦" else "Refresh calendar") { refreshCalendar(today.year) } }
+                item { MenuChip(if (refreshing) "Checking…" else "Refresh calendar") { refreshCalendar(today.year) } }
                 if (refreshError) item { Text("Unable to refresh. Try again when connected.", color = Muted, fontSize = 13.sp) }
             }
         }
@@ -312,9 +312,9 @@ private fun ScriptureApp(books: List<Book>, repository: ScriptureRepository, les
         composable("settings") {
             WatchList {
                 item { Heading("READING", "Make it comfortable") }
-                item { MenuChip("Text size", "$textSize Ã‚Â· preview and adjust") { navigation.navigate("text-size") } }
+                item { MenuChip("Text size", "$textSize · preview and adjust") { navigation.navigate("text-size") } }
                 item {
-                    MenuChip("Keep screen awake", if (keepAwake) "On while reading" else "Off Ã‚Â· use watch timeout") {
+                    MenuChip("Keep screen awake", if (keepAwake) "On while reading" else "Off · use watch timeout") {
                         keepAwake = !keepAwake
                         store.keepAwake = keepAwake
                     }
@@ -331,9 +331,9 @@ private fun ScriptureApp(books: List<Book>, repository: ScriptureRepository, les
                 textSize = it.toInt(); store.textSize = textSize
             }, valueRange = 16f..26f, steps = 9,
                 increaseIcon = { Text("+", fontSize = 25.sp, color = Accent) },
-                decreaseIcon = { Text("Ã¢Ë†â€™", fontSize = 25.sp, color = Accent) }) {
+                decreaseIcon = { Text("−", fontSize = 25.sp, color = Accent) }) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(horizontal = 30.dp)) {
-                    Text("TEXT SIZE Ã‚Â· $textSize", fontSize = 11.sp, color = Muted)
+                    Text("TEXT SIZE · $textSize", fontSize = 11.sp, color = Muted)
                     Spacer(Modifier.height(8.dp))
                     Text("Be still, and know that I am God.", fontFamily = FontFamily.Serif,
                         fontSize = textSize.sp, lineHeight = (textSize * 1.45f).sp, textAlign = TextAlign.Center, color = Ink)
@@ -439,7 +439,7 @@ private fun Reader(book: Book, initial: ReadingPosition, repository: ScriptureRe
         onDispose { activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON) }
     }
     if (failed) { Message("Unable to open this chapter. Go back and try again."); return }
-    val loaded = chapter ?: run { Message("Opening chapterÃ¢â‚¬Â¦"); return }
+    val loaded = chapter ?: run { Message("Opening chapter…"); return }
     val state = rememberLazyListState(initial.itemIndex, initial.offset)
     val focus = remember { FocusRequester() }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
@@ -490,12 +490,12 @@ private fun Reader(book: Book, initial: ReadingPosition, repository: ScriptureRe
                         horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(book.reference(initial.chapter), color = Accent, fontSize = 15.sp,
                             fontWeight = FontWeight.Medium, textAlign = TextAlign.Center)
-                        Text(if (expanded) "Chapter overview â–´" else "Chapter overview â–¾",
+                        Text(if (expanded) "Chapter overview ▴" else "Chapter overview ▾",
                             color = Muted, fontSize = 12.sp, modifier = Modifier.padding(vertical = 8.dp))
                     }
                     if (expanded) {
                         when {
-                            studyLoading -> Text("Downloading study helpsâ€¦", color = Muted, fontSize = 13.sp)
+                            studyLoading -> Text("Downloading study helps…", color = Muted, fontSize = 13.sp)
                             studyFailed -> {
                                 Text("Not downloaded. Connect to the internet and try again. Scripture text is still available offline.", color = Muted, fontSize = 13.sp)
                                 MenuChip("Try again") { expanded = false; overview() }
@@ -504,7 +504,7 @@ private fun Reader(book: Book, initial: ReadingPosition, repository: ScriptureRe
                                 Text(study.summary.ifBlank { "No overview was provided for this chapter." }, color = Ink,
                                     fontFamily = FontFamily.Serif, fontSize = textSize.sp, lineHeight = (textSize * 1.5f).sp,
                                     modifier = Modifier.padding(vertical = 12.dp))
-                                Text("Official chapter overview Â· saved on this watch", color = Muted, fontSize = 11.sp)
+                                Text("Official chapter overview · saved on this watch", color = Muted, fontSize = 11.sp)
                                 if (study.notices.isNotBlank()) Text(study.notices, color = Muted, fontSize = 11.sp)
                             }
                         }
@@ -519,9 +519,9 @@ private fun Reader(book: Book, initial: ReadingPosition, repository: ScriptureRe
                     withStyle(SpanStyle(color = Accent, fontSize = (textSize - 4).sp,
                         fontFamily = FontFamily.SansSerif)) {
                         append("${index + 1} ")
-                        val markers = study?.notes?.filter { it.verse == index + 1 }?.joinToString("Â·") { it.marker }.orEmpty()
+                        val markers = study?.notes?.filter { it.verse == index + 1 }?.joinToString("·") { it.marker }.orEmpty()
                         if (markers.isNotBlank()) append("$markers ")
-                        if (verseKey(ReadingPosition(book.id, initial.chapter, index + 1)) in savedKeys) append("Ã¢â„¢Â¥ ")
+                        if (verseKey(ReadingPosition(book.id, initial.chapter, index + 1)) in savedKeys) append("♥ ")
                         append(" ")
                     }
                     append(text)
@@ -537,7 +537,7 @@ private fun Reader(book: Book, initial: ReadingPosition, repository: ScriptureRe
                     Spacer(Modifier.height(10.dp))
                     if (nextLabel != null) MenuChip("Next ${if (book.isSections) "section" else "chapter"}", nextLabel, onNext)
                     Spacer(Modifier.height(8.dp))
-                    CompactChip(onClick = onSettings, label = { Text("Aa Ã‚Â· Reading settings", fontSize = 11.sp) })
+                    CompactChip(onClick = onSettings, label = { Text("Aa · Reading settings", fontSize = 11.sp) })
                 }
             }
         }

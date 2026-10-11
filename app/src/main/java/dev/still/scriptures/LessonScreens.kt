@@ -34,7 +34,8 @@ import java.util.Locale
 
 fun lessonDateLabel(lesson: Lesson): String {
     val format = DateTimeFormatter.ofPattern("MMM d", Locale.US)
-    return "${lesson.start.format(format)}â€“${lesson.end.format(format)}"
+    return if (lesson.start.month == lesson.end.month) "${lesson.start.format(format)}–${lesson.end.dayOfMonth}"
+    else "${lesson.start.format(format)}–${lesson.end.format(format)}"
 }
 
 @Composable
@@ -43,16 +44,20 @@ fun LessonOverview(lesson: Lesson, books: List<Book>, today: LocalDate, refreshi
                    onWeeks: () -> Unit, onRefresh: () -> Unit) {
     WatchList {
         item { Heading("COME, FOLLOW ME", lesson.title) }
-        item { Text(lessonDateLabel(lesson) + " Â· ${lesson.year}" +
-            if (today >= lesson.start && today <= lesson.end) " Â· This week" else "", color = Muted, fontSize = 12.sp) }
-        item { Text(if (lesson.supporting) "SUPPORTING READINGS" else "SCRIPTURES", color = Accent, fontSize = 11.sp) }
+        item {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                Text(lessonDateLabel(lesson) + " · ${lesson.year}", color = Muted, fontSize = 12.sp, textAlign = TextAlign.Center)
+                if (today >= lesson.start && today <= lesson.end) Text("This week", color = Accent, fontSize = 11.sp)
+                if (lesson.supporting) Text("Supporting readings", color = Muted, fontSize = 11.sp)
+            }
+        }
         lesson.groups.forEachIndexed { index, group ->
             item { MenuChip(if (lesson.groups.size == 1) "Read scriptures" else groupLabel(group, books), "Choose a chapter") { onGroup(index) } }
         }
         if (lesson.groups.isEmpty()) item { Text("No scripture links saved for this lesson.", color = Muted, fontSize = 13.sp) }
-        item { MenuChip("Read lesson", "Official lesson Â· saved after opening", onLesson) }
+        item { MenuChip("Read lesson", "Official lesson · saved after opening", onLesson) }
         item { MenuChip("Other weeks", "Browse saved calendars", onWeeks) }
-        item { MenuChip(if (refreshing) "Checking calendarâ€¦" else "Refresh calendar", "Internet required", onRefresh) }
+        item { MenuChip(if (refreshing) "Checking calendar…" else "Refresh calendar", "Internet required", onRefresh) }
         if (refreshError) item { Text("Unable to refresh. Saved readings are still available.", color = Muted, fontSize = 13.sp) }
         item { Text(if (lesson.supporting) "Daily verses are selected for this app from supporting readings."
                     else "Daily verses are selected for this app from the week's scripture readings.",
@@ -79,7 +84,7 @@ fun OfficialLessonReader(lesson: Lesson, repository: LessonRepository, store: Re
     if (loaded == null) {
         WatchList {
             item { Heading("COME, FOLLOW ME", lesson.title) }
-            item { Text(if (loading) "Opening lessonâ€¦" else "Connect to download this lesson. Once opened, it stays available offline until eight newer lessons have been visited.",
+            item { Text(if (loading) "Opening lesson…" else "Connect to download this lesson. Once opened, it stays available offline until eight newer lessons have been visited.",
                 color = Muted, fontSize = 13.sp, textAlign = TextAlign.Center) }
             if (failed) item { MenuChip("Try again") { request++ } }
         }
@@ -134,7 +139,7 @@ fun OfficialLessonReader(lesson: Lesson, repository: LessonRepository, store: Re
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text("Official lesson text\nChurchofJesusChrist.org\nLast eight visited lessons saved offline.", color = Muted, fontSize = 12.sp, textAlign = TextAlign.Center)
                     if (failed) Text("Refresh failed. Showing the saved lesson.", color = Muted, fontSize = 12.sp)
-                    MenuChip(if (loading) "Refreshingâ€¦" else "Refresh lesson", "Internet required") { if (!loading) request++ }
+                    MenuChip(if (loading) "Refreshing…" else "Refresh lesson", "Internet required") { if (!loading) request++ }
                 }
             }
         }
