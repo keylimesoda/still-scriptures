@@ -1,0 +1,10 @@
+{
+  "source": "https://www.churchofjesuschrist.org/study/scriptures/",
+  "language": "English",
+  "mode": "Explicit user request, per-chapter private download; no study text bundled or redistributed",
+  "content": ["Official chapter/section introduction and summary", "Verse footnote markers, source words, note text and official links"],
+  "terms": "https://www.churchofjesuschrist.org/learn/legal/terms-of-use/go?lang=eng",
+  "parser": "article[data-content-type=chapter], header study-summary/study-intro, study-notes li[data-full-marker]",
+  "cache": "Private chapter-study directory; retained until uninstall or storage clearing",
+  "limitations": ["First request requires internet", "Unbundled study aid targets use phone links", "Cross-reference ranges open at first verse", "Official HTML changes can require parser updates"]
+}

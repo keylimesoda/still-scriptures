@@ -1,0 +1,18 @@
+{
+  "sources": [
+    {
+      "year": 2026,
+      "url": "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-old-testament-2026?lang=eng",
+      "sha256": "ed31508bd28c95b90c24bc2380163a80982e8bb78b69565fd0eb448a97a7df70"
+    },
+    {
+      "year": 2027,
+      "url": "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-new-testament-2027?lang=eng",
+      "sha256": "2c7b9dcf984f63372f8caf6484fb0cb3b6406e3ce48ebe2184318d08fa908701"
+    }
+  ],
+  "description": "Published calendar dates and scripture assignments only. No official lesson prose bundled.",
+  "dailySelection": "App-curated references; weekday modulo curated pool size; no official daily-verse claim.",
+  "lessons": 104,
+  "uniqueCuratedReferences": 696
+}

@@ -1,0 +1,22 @@
+{
+  "repository": "https://github.com/bcbooks/scriptures-json",
+  "commit": "3bda76e40add4582165340ea6b1198dc6ad26ae1",
+  "upstreamLicense": "Public domain, per upstream README",
+  "sourceSHA256": {
+    "old-testament.json": "16a1fd220dff55c942f7fe188f482994171f2dd7502c1869cf992433e8e991ea",
+    "new-testament.json": "d77e711d77702a46ad11585940983039263c225ee864fe7b37197d703e7f564e",
+    "book-of-mormon.json": "7987cacbbbf3d53a22da8d5b82023001b97467c642f4baa0d962365a536f5c60",
+    "doctrine-and-covenants.json": "eb28b47e915f2843e14cffc6b850da7566104b17dc6e0d73daaf2577647cf62d",
+    "pearl-of-great-price.json": "b62759b46d7e7daee20f4cb494dcb101ef32a8a62ab4021edbfd6a805b81e909"
+  },
+  "books": 87,
+  "chapters": 1582,
+  "verses": 41995,
+  "omissions": [
+    "Modern footnotes",
+    "Modern chapter summaries",
+    "Official Declarations 1 and 2",
+    "Introductions, facsimiles, title pages and other non-verse front matter",
+    "JST study aids"
+  ]
+}
