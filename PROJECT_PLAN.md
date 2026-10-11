@@ -11,7 +11,7 @@ First-version priorities:
 2. Read scriptures assigned in this week's Come, Follow Me.
 3. Open a meaningful daily verse from that week's readings.
 
-## Implemented in 0.6
+## Implemented in 0.6 / 0.6.1
 
 - Continuous warm serif reading on black, scalable type, one resume position,
   next chapter, optional keep-awake.
@@ -46,3 +46,14 @@ First-version priorities:
 Release compilation and installation are recorded per version. Earlier 0.1
 unit/emulator checks do not validate later features. No new automated tests
 have been run for 0.6. Public releases are early previews with honest gaps.
+
+## Documentation and display polish — October 11, 2026
+
+README now includes the existing app icon, five actual optimized-release captures
+from the round Wear OS emulator, feature captions, download links, an offline
+availability table and a collapsible developer section. These are documentation
+captures, not automated feature tests. No official downloaded prose is pictured.
+While capturing, garbled UTF-8 punctuation was found in menu and study labels.
+0.6.1 fixes those strings and completes the compact centered Come, Follow Me date.
+The optimized patch compiles and was installed in the emulator for captures.
+The physical watch was offline; its previous 0.6 install remains in place.

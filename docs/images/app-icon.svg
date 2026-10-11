@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-label="Still Scriptures open-book app icon">
+  <rect width="192" height="192" rx="48" fill="#000000"/>
+  <g transform="scale(4)">
+    <path fill="#CEB995" d="M9 13h12l3 3 3-3h12v24H27l-3 2-3-2H9z"/>
+    <path fill="none" stroke="#000000" stroke-width="2" d="M24 17v19M13 20h7M13 25h7M28 20h7M28 25h7"/>
+  </g>
+</svg>
